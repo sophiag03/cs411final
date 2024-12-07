@@ -1,7 +1,9 @@
 from contextlib import contextmanager
 import logging
 import os
-import sqlite3
+# import sqlite3
+
+from cs411final.db import db
 
 from cs411final.utils.logger import configure_logger
 
@@ -16,23 +18,23 @@ DB_PATH = os.getenv("DB_PATH", "/app/sql/affirmations.db")
 
 def check_database_connection():
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = db.connect(DB_PATH)
         cursor = conn.cursor()
         # This ensures the connection is actually active
         cursor.execute("SELECT 1;")
         conn.close()
-    except sqlite3.Error as e:
+    except db.Error as e:
         error_message = f"Database connection error: {e}"
         logger.error(error_message)
         raise Exception(error_message) from e
 
 def check_table_exists(tablename: str):
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = db.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute(f"SELECT 1 FROM {tablename} LIMIT 1;")
         conn.close()
-    except sqlite3.Error as e:
+    except db.Error as e:
         error_message = f"Table check error: {e}"
         logger.error(error_message)
         raise Exception(error_message) from e
@@ -47,9 +49,9 @@ def check_table_exists(tablename: str):
 def get_db_connection():
     conn = None
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = db.connect(DB_PATH)
         yield conn
-    except sqlite3.Error as e:
+    except db.Error as e:
         logger.error("Database connection error: %s", str(e))
         raise e
     finally:
