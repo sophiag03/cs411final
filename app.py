@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 from utils.logger import configure_logger
 
+from models.user_model import Users
+
 
 # Load environment variables from .env file
 load_dotenv()
