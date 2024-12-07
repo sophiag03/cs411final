@@ -129,6 +129,46 @@ def login():
         app.logger.error("Error during login for username %s: %s", username, str(e))
         return jsonify({"error": "An unexpected error occurred."}), 500
 
+@app.route('/api/update-password', methods=['PUT'])
+def update_password() -> Response:
+    """
+    Route to update a user's password.
+
+    Expected JSON Input:
+        - username (str): The username of the user.
+        - new_password (str): The new password to set.
+
+    Returns:
+        JSON response indicating the success of the password update.
+    Raises:
+        400 error if input validation fails.
+        404 error if the user does not exist.
+        500 error if there is an issue updating the password in the database.
+    """
+    app.logger.info('Updating user password')
+    try:
+        # Get the JSON data from the request
+        data = request.get_json()
+
+        # Extract and validate required fields
+        username = data.get('username')
+        new_password = data.get('new_password')
+
+        if not username or not new_password:
+            return make_response(jsonify({'error': 'Invalid input, both username and new_password are required'}), 400)
+
+        # Call the User function to update the password
+        app.logger.info('Updating password for user: %s', username)
+        Users.update_password(username, new_password)
+
+        app.logger.info("Password updated for user: %s", username)
+        return make_response(jsonify({'status': 'password updated', 'username': username}), 200)
+    except ValueError as e:
+        app.logger.error("Failed to update password: %s", str(e))
+        return make_response(jsonify({'error': str(e)}), 404)
+    except Exception as e:
+        app.logger.error("Failed to update password: %s", str(e))
+        return make_response(jsonify({'error': str(e)}), 500)
 
 
 @app.route('/fetch-affirmation', methods=['POST'])
