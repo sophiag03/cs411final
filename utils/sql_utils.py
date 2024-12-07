@@ -1,4 +1,4 @@
-from cs411final.db import db
+from db import db
 import logging
 from utils.logger import configure_logger
 

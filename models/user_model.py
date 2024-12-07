@@ -4,7 +4,7 @@ import os
 
 from sqlalchemy.exc import IntegrityError
 
-from cs411final.db import db
+from db import db
 from utils.logger import configure_logger
 
 
