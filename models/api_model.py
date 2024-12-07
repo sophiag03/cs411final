@@ -1,5 +1,6 @@
 
 import requests
+import logging
 
 from utils.logger import configure_logger
 
