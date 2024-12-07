@@ -5,6 +5,7 @@ import random
 import os
 from dotenv import load_dotenv
 from utils.logger import configure_logger
+from werkzeug.exceptions import BadRequest, Unauthorized
 
 from models.user_model import Users
 
