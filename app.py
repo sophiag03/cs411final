@@ -2,10 +2,20 @@ from flask import Flask, jsonify
 import models.api_model as api_model
 import random
 
+from cs411final.utils.logger import configure_logger
+
+
 app = Flask(__name__)
 
 # Initialize the API model
 affirmation_model = api_model()
+
+logger = logging.getLogger(__name__)
+configure_logger(logger)
+
+@app.before_request
+def log_request_info():
+    logger.info("Request: %s %s", request.method, request.url)
 
 @app.route('/health', methods=['GET'])
 def health_check():
