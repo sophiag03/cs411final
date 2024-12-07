@@ -2,10 +2,23 @@ from flask import Flask, jsonify
 import models.api_model as api_model
 import random
 
+import os
+from dotenv import load_dotenv
+
 from cs411final.utils.logger import configure_logger
 
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
+
+# Accessing environment variables
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_PATH')
+
+# Example of using the Flask environment configuration
+if __name__ == "__main__":
+    app.run(debug=True)
 
 # Initialize the API model
 affirmation_model = api_model()
