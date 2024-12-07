@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install python-dotenv 
 
 # Install SQLite3
-RUN apt-get update && apt-get install -y sqlite3
+RUN apt-get update && apt-get install -y SQLAlchemy
 
 # Define a volume for persisting the database
 VOLUME ["/app/db"]
