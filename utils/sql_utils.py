@@ -1,60 +1,38 @@
-from contextlib import contextmanager
-import logging
-import os
-# import sqlite3
-
 from cs411final.db import db
-
-from cs411final.utils.logger import configure_logger
-
+import logging
+from utils.logger import configure_logger
 
 logger = logging.getLogger(__name__)
 configure_logger(logger)
 
-
-# load the db path from the environment with a default value
-DB_PATH = os.getenv("DB_PATH", "/app/sql/affirmations.db")
-
-
 def check_database_connection():
+    """
+    Check if the database connection is active by running a simple query.
+    """
     try:
-        conn = db.connect(DB_PATH)
-        cursor = conn.cursor()
-        # This ensures the connection is actually active
-        cursor.execute("SELECT 1;")
-        conn.close()
-    except db.Error as e:
-        error_message = f"Database connection error: {e}"
-        logger.error(error_message)
-        raise Exception(error_message) from e
+        with db.session.begin():
+            db.session.execute("SELECT 1")
+        logger.info("Database connection successful.")
+    except Exception as e:
+        logger.error("Database connection error: %s", str(e))
+        raise
 
 def check_table_exists(tablename: str):
-    try:
-        conn = db.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT 1 FROM {tablename} LIMIT 1;")
-        conn.close()
-    except db.Error as e:
-        error_message = f"Table check error: {e}"
-        logger.error(error_message)
-        raise Exception(error_message) from e
+    """
+    Check if a specific table exists in the database.
 
-###################################################
-#
-# This one yields rather than returns.
-# What is the type of the yielded value?
-#
-###################################################
-@contextmanager
-def get_db_connection():
-    conn = None
+    Args:
+        tablename (str): The name of the table to check.
+
+    Raises:
+        Exception: If the table does not exist or an error occurs.
+    """
     try:
-        conn = db.connect(DB_PATH)
-        yield conn
-    except db.Error as e:
-        logger.error("Database connection error: %s", str(e))
-        raise e
-    finally:
-        if conn:
-            conn.close()
-            logger.info("Database connection closed.")
+        with db.session.begin():
+            result = db.session.execute(f"SELECT 1 FROM {tablename} LIMIT 1")
+            if result.rowcount == 0:
+                raise Exception(f"Table '{tablename}' exists but is empty.")
+        logger.info("Table '%s' exists.", tablename)
+    except Exception as e:
+        logger.error("Table check error: %s", str(e))
+        raise
