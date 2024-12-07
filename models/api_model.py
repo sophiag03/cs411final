@@ -1,6 +1,12 @@
 
 import requests
 
+from utils.logger import configure_logger
+
+
+logger = logging.getLogger(__name__)
+configure_logger(logger)
+
 class AffirmationModel:
     def __init__(self):
        
