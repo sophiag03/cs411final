@@ -5,7 +5,7 @@ import os
 from sqlalchemy.exc import IntegrityError
 
 from cs411final.db import db
-from cs411final.utils.logger import configure_logger
+from utils.logger import configure_logger
 
 
 logger = logging.getLogger(__name__)
