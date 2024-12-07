@@ -120,9 +120,6 @@ def login():
         # Get user ID
         user_id = Users.get_id_by_username(username)
 
-        # Load user's combatants into the battle model
-        login_user(user_id, battle_model)
-
         app.logger.info("User %s logged in successfully.", username)
         return jsonify({"message": f"User {username} logged in successfully."}), 200
 
