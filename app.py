@@ -1,10 +1,9 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import models.api_model as api_model
 import random
-
+import logging
 import os
 from dotenv import load_dotenv
-
 from cs411final.utils.logger import configure_logger
 
 # Load environment variables from .env file
