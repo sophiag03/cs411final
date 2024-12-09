@@ -59,7 +59,7 @@ def create_user() -> Response:
 
     Returns:
         JSON response indicating the success of user creation.
-        
+
     Raises:
         400 error if input validation fails.
         500 error if there is an issue adding the user to the database.
