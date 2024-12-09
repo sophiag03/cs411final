@@ -59,6 +59,7 @@ def create_user() -> Response:
 
     Returns:
         JSON response indicating the success of user creation.
+        
     Raises:
         400 error if input validation fails.
         500 error if there is an issue adding the user to the database.
@@ -89,7 +90,7 @@ def create_user() -> Response:
 @app.route('/api/login', methods=['POST'])
 def login():
     """
-    Route to log in a user and load their combatants.
+    Route to log in a user.
 
     Expected JSON Input:
         - username (str): The username of the user.
@@ -140,6 +141,7 @@ def update_password() -> Response:
 
     Returns:
         JSON response indicating the success of the password update.
+
     Raises:
         400 error if input validation fails.
         404 error if the user does not exist.
@@ -171,7 +173,7 @@ def update_password() -> Response:
         return make_response(jsonify({'error': str(e)}), 500)
 
 
-@app.route('/fetch-affirmation', methods=['POST'])
+@app.route('/fetch-affirmation', methods=['GET'])
 def fetch_affirmation():
     """
     Fetches a new affirmation from the external API and stores it in memory.
