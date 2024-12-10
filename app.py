@@ -190,7 +190,7 @@ def view_affirmations():
     Returns all stored affirmations.
     """
     affirmations = affirmation_model.get_all_affirmations()
-    return jsonify({"affirmations": affirmations}), 200
+    return jsonify({"message": "Here are all your affirmations!", "affirmations": affirmations}), 200
 
 @app.route('/clear-affirmations', methods=['DELETE'])
 def clear_affirmations():
