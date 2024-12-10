@@ -8,6 +8,12 @@ configure_logger(logger)
 def check_database_connection():
     """
     Check if the database connection is active by running a simple query.
+
+    Args:
+        None
+
+    Raise:
+        Exception: If the database does not exist or an error occurs.
     """
     try:
         with db.session.begin():

@@ -37,17 +37,12 @@ def log_request_info():
 def health_check():
     """
     Health check route to verify the app is running.
+
+    Returns:
+        JSON response with a message confirming the app's status.
     """
     return jsonify({"status": "App is running"}), 200
 
-"""
-need:
-
-create account
-login
-update password
-
-"""
 @app.route('/api/create-user', methods=['POST'])
 def create_user() -> Response:
     """
@@ -177,6 +172,12 @@ def update_password() -> Response:
 def fetch_affirmation():
     """
     Fetches a new affirmation from the external API and stores it in memory.
+    
+    Returns:
+        JSON response with the fetched affirmation.
+
+    Raises:
+        500 error if the external API call fails or the affirmation cannot be stored.
     """
     affirmation = affirmation_model.fetch_affirmation()
     if affirmation:
@@ -188,6 +189,12 @@ def fetch_affirmation():
 def view_affirmations():
     """
     Returns all stored affirmations.
+
+    Returns:
+        JSON response containing a list of stored affirmations.
+
+    Raises:
+        None
     """
     affirmations = affirmation_model.get_all_affirmations()
     return jsonify({"message": "Here are all your affirmations!", "affirmations": affirmations}), 200
@@ -196,6 +203,12 @@ def view_affirmations():
 def clear_affirmations():
     """
     Clears all stored affirmations.
+
+    Returns:
+        JSON response confirming the affirmations were cleared.
+
+    Raises:
+        None
     """
     affirmation_model.clear_affirmations()
     return jsonify({"message": "All affirmations cleared."}), 200
@@ -204,6 +217,12 @@ def clear_affirmations():
 def affirmation_count():
     """
     Returns the number of affirmations stored in memory.
+
+    Returns:
+        JSON response with the count of stored affirmations.
+
+    Raises:
+        None
     """
     count = affirmation_model.get_affirmation_count()
     return jsonify({"count": count}), 200
@@ -212,6 +231,13 @@ def affirmation_count():
 def random_affirmation():
     """
     Returns a random affirmation from the stored affirmations.
+
+    Returns:
+        JSON response with a random affirmation if affirmations are available,
+        or a message indicating no affirmations are stored.
+
+    Raises:
+        404 error if no affirmations are available.
     """
     affirmations = affirmation_model.get_all_affirmations()
     if affirmations:
