@@ -11,7 +11,7 @@ class TestUsersModel(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Create the application context and initialize the database
+        #application context and initialize the database
         cls.app_context = app.app_context()
         cls.app_context.push()
         db.init_app(app)  # Initialize `db` with the Flask app
@@ -19,13 +19,13 @@ class TestUsersModel(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        # Remove the application context after all tests
+        #remove application context 
         db.session.remove()
-        db.drop_all()  # Drop all tables
+        db.drop_all()  
         cls.app_context.pop()
 
     def setUp(self):
-        # Reset the database before each test
+        #reset the database before each test
         db.session.remove()
         db.drop_all()
         db.create_all()

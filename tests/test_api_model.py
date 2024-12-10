@@ -10,7 +10,7 @@ class TestAffirmationModel(unittest.TestCase):
 
     @patch('models.api_model.requests.get')
     def test_fetch_affirmation_success(self, mock_get):
-        # Mock a successful API response
+        #mock an accomplished API response
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"affirmation": "You are amazing!"}
@@ -23,7 +23,7 @@ class TestAffirmationModel(unittest.TestCase):
 
     @patch('models.api_model.requests.get')
     def test_fetch_affirmation_no_affirmation(self, mock_get):
-        # Mock an API response with no affirmation
+        #mock API response with no affirmation
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {}
@@ -36,7 +36,7 @@ class TestAffirmationModel(unittest.TestCase):
 
     @patch('models.api_model.requests.get')
     def test_fetch_affirmation_api_error(self, mock_get):
-        # Mock a failed API call
+        #mock a failed API call
         mock_get.side_effect = requests.exceptions.RequestException("API error")
 
         result = self.model.fetch_affirmation()
@@ -45,7 +45,7 @@ class TestAffirmationModel(unittest.TestCase):
         self.assertEqual(len(self.model.affirmations), 0)
 
     def test_get_all_affirmations(self):
-        # Add affirmations manually
+        #add affirmations manually
         self.model.affirmations = ["Stay positive", "You got this"]
 
         result = self.model.get_all_affirmations()
@@ -53,14 +53,14 @@ class TestAffirmationModel(unittest.TestCase):
         self.assertEqual(result, ["Stay positive", "You got this"])
 
     def test_clear_affirmations(self):
-        # Add affirmations manually and then clear them
+        #add affirmations manually and then clear them
         self.model.affirmations = ["Stay positive", "You got this"]
         self.model.clear_affirmations()
 
         self.assertEqual(len(self.model.affirmations), 0)
 
     def test_get_affirmation_count(self):
-        # Add affirmations manually and check the count
+        #add affirmations manually and check the count
         self.model.affirmations = ["Stay positive", "You got this"]
 
         result = self.model.get_affirmation_count()
@@ -68,7 +68,7 @@ class TestAffirmationModel(unittest.TestCase):
         self.assertEqual(result, 2)
 
     def test_fetch_multiple_affirmations(self):
-        # Mock fetching multiple affirmations
+        #mock fetching multiple affirmations
         self.model.affirmations = ["You are strong", "Keep going"]
         self.model.affirmations.append("You are amazing!")
 
@@ -76,13 +76,13 @@ class TestAffirmationModel(unittest.TestCase):
         self.assertEqual(len(result), 3)
 
     def test_clear_empty_affirmations(self):
-        # Clear affirmations when the list is already empty
+        #clear affirmations when the list is already empty
         self.model.clear_affirmations()
 
         self.assertEqual(len(self.model.affirmations), 0)
 
     def test_initial_affirmation_count(self):
-        # Check affirmation count immediately after initialization
+        #check affirmation count immediately after initialization
         self.assertEqual(self.model.get_affirmation_count(), 0)
 
 if __name__ == '__main__':
