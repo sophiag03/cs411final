@@ -16,16 +16,14 @@ The Affirmation Generator is designed to provide users with positive affirmation
 
 ---
 
-## API Endpoints
+## Route Documentation
 
 ### **Route: `/create-user`**
 - **Request Type:** POST  
 - **Purpose:** Creates a new user account with a username and password.  
 - **Request Body:**
-    {
-        "username": "newuser123",
-        "password": "securepassword"
-    }
+    - username (String): User's chosen username.
+    - password (String): User's chosen password.
 - **Reponse Format:** JSON
 - **Success Reponse Example:**
     - Code: 200
@@ -38,5 +36,128 @@ The Affirmation Generator is designed to provide users with positive affirmation
 - **Example Response:**
     {
         "message": "Account created successfully",
+        "status": "200"
+    }
+
+### **Route: `/login`**
+- **Request Type:** POST  
+- **Purpose:** Logs a user into their account. 
+- **Request Body:**
+    - username (String): User's chosen username.
+    - password (String): User's chosen password.
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "message": "User logged in successfully" }
+- **Example Request:**
+    {
+        "username": "newuser123",
+        "password": "securepassword"
+    }
+- **Example Response:**
+    {
+        "message": "User logged in successfully",
+        "status": "200"
+    }
+
+### **Route: `/update-password`**
+- **Request Type:** PUT
+- **Purpose:** Updates the password of a user account
+- **Request Body:**
+    - username (String): User's chosen username.
+    - new_password (String): User's chosen new password.
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "message": "Password updated for user" }
+- **Example Request:**
+    {
+        "username": "newuser123",
+        "new_password": "secure password"
+    }
+- **Example Response:**
+    {
+        "message": "Password updated for user",
+        "status": "200"
+    }
+
+### **Route: `/fetch-affirmation`**
+- **Request Type:** GET
+- **Purpose:** Fetches a new affirmation from the external API and stores it in memory.
+- **Parameters:**
+    - String
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 201
+    - Content: { "message": "Affirmation fetched and stored.", “affirmation”: a random affirmation }
+- **Example Response:**
+    {
+        "message": "Affirmation fetched and stored.r",
+        "affirmation": "You are the best!"
+        "status": "201"
+    }
+
+### **Route: `/view-affirmations`**
+- **Request Type:** GET
+- **Purpose:** Retrieves all previously stored affirmations.
+- **Parameters:**
+    - List
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "message": "Here are all your affirmations!", "affirmations": [ "You are capable of achieving great things.", "Believe in yourself.", "Every day is a new opportunity." ] }
+- **Example Response:**
+    {
+        "message": "Here are all your affirmations!",
+        "affirmations": [
+            "You are capable of achieving great things.",
+            "Believe in yourself.",
+            "Every day is a new opportunity."
+        ],
+        "status": "200"
+    }
+
+### **Route: `/clear-affirmations`**
+- **Request Type:** DELETE
+- **Purpose:** Deletes all stored affirmations.
+- **Parameters:**
+    - None
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "message": "All affirmations cleared." }
+- **Example Response:**
+    {
+        "message": "All affirmations cleared.",
+        "status": "200"
+    }
+
+### **Route: `/affirmation-count`**
+- **Request Type:** GET
+- **Purpose:** Returns the number of affirmations stored in memory.
+- **Parameters:**
+    - Integer
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "count": number of stored affirmations }
+- **Example Response:**
+    {
+        "count": 15,
+        "status": "200"
+    }
+
+### **Route: `/random-affirmation`**
+- **Request Type:** GET
+- **Purpose:** Returns a random affirmation from the stored affirmations.
+- **Parameters:**
+    - String
+- **Reponse Format:** JSON
+- **Success Reponse Example:**
+    - Code: 200
+    - Content: { "affirmation": a random affirmation from memory }
+- **Example Response:**
+    {
+        "affirmation": "You are capable of achieving great things.",
         "status": "200"
     }
