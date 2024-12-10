@@ -172,6 +172,9 @@ def update_password() -> Response:
 def fetch_affirmation():
     """
     Fetches a new affirmation from the external API and stores it in memory.
+
+    Expected JSON Input:
+        None
     
     Returns:
         JSON response with the fetched affirmation.
@@ -190,6 +193,9 @@ def view_affirmations():
     """
     Returns all stored affirmations.
 
+    Expected JSON Input:
+        None
+
     Returns:
         JSON response containing a list of stored affirmations.
 
@@ -203,6 +209,9 @@ def view_affirmations():
 def clear_affirmations():
     """
     Clears all stored affirmations.
+
+    Expected JSON Input:
+        None
 
     Returns:
         JSON response confirming the affirmations were cleared.
@@ -218,6 +227,9 @@ def affirmation_count():
     """
     Returns the number of affirmations stored in memory.
 
+    Expected JSON Input:
+        None
+
     Returns:
         JSON response with the count of stored affirmations.
 
@@ -231,6 +243,9 @@ def affirmation_count():
 def random_affirmation():
     """
     Returns a random affirmation from the stored affirmations.
+
+    Expected JSON Input:
+        None
 
     Returns:
         JSON response with a random affirmation if affirmations are available,

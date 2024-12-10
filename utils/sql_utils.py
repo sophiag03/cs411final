@@ -12,7 +12,7 @@ def check_database_connection():
     Args:
         None
 
-    Raise:
+    Raises:
         Exception: If the database does not exist or an error occurs.
     """
     try:
