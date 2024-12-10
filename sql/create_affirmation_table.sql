@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS meals;
+DROP TABLE IF EXISTS affirmations;
 CREATE TABLE affirmations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     affirmation TEXT NOT NULL UNIQUE,

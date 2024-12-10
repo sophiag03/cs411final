@@ -28,7 +28,7 @@ class AffirmationModel:
         Args:
             None
 
-        Returns:
+        Returns: 
             The fetched affirmation as a string if the API call is successful,
             or `None` if no affirmation is retrieved.
 
