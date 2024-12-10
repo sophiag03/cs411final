@@ -67,5 +67,23 @@ class TestAffirmationModel(unittest.TestCase):
 
         self.assertEqual(result, 2)
 
+    def test_fetch_multiple_affirmations(self):
+        # Mock fetching multiple affirmations
+        self.model.affirmations = ["You are strong", "Keep going"]
+        self.model.affirmations.append("You are amazing!")
+
+        result = self.model.get_all_affirmations()
+        self.assertEqual(len(result), 3)
+
+    def test_clear_empty_affirmations(self):
+        # Clear affirmations when the list is already empty
+        self.model.clear_affirmations()
+
+        self.assertEqual(len(self.model.affirmations), 0)
+
+    def test_initial_affirmation_count(self):
+        # Check affirmation count immediately after initialization
+        self.assertEqual(self.model.get_affirmation_count(), 0)
+
 if __name__ == '__main__':
     unittest.main()
