@@ -1,6 +1,6 @@
 import logging
 from flask import Flask, jsonify, request, make_response, Response
-import models.api_model as api_model
+from models.api_model import AffirmationModel
 import random
 import os
 from dotenv import load_dotenv
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 # Initialize the API model
-affirmation_model = api_model()
+affirmation_model = AffirmationModel()
 
 logger = logging.getLogger(__name__)
 configure_logger(logger)
@@ -41,7 +41,7 @@ def health_check():
     Returns:
         JSON response with a message confirming the app's status.
     """
-    return jsonify({"status": "App is running"}), 200
+    return jsonify({"status": "App is running"}), 200 
 
 @app.route('/api/create-user', methods=['POST'])
 def create_user() -> Response:
@@ -261,5 +261,5 @@ def random_affirmation():
     else:
         return jsonify({"message": "No affirmations available."}), 404
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5001, debug=True)
